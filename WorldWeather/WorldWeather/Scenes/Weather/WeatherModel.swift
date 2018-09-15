@@ -12,7 +12,7 @@ enum WeatherModel {
     
     enum Fetch {
         struct Request {
-            let city: String
+            let woeid: String
         }
         
         struct Response {

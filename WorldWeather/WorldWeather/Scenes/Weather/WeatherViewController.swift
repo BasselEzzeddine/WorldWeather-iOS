@@ -30,6 +30,7 @@ class WeatherViewController: UIViewController {
     // MARK: - Properties
     var output: WeatherViewControllerOut?
     var city = ""
+    var woeid = ""
     
     // MARK: - UIViewController
     override func viewDidLoad() {
@@ -44,7 +45,7 @@ class WeatherViewController: UIViewController {
     }
     
     private func callFetchWeatherInfo() {
-        let request = WeatherModel.Fetch.Request(city: city)
+        let request = WeatherModel.Fetch.Request(woeid: woeid)
         output?.fetchWeatherInfo(request: request)
     }
 }

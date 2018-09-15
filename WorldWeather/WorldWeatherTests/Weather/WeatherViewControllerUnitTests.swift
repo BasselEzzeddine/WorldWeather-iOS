@@ -74,7 +74,7 @@ class WeatherViewControllerUnitTests: XCTestCase {
         let outputSpy = OutputSpy()
         sut.output = outputSpy
         
-        sut.city = "Paris"
+        sut.woeid = "12345"
         
         // When
         sut.viewDidLoad()
@@ -83,6 +83,6 @@ class WeatherViewControllerUnitTests: XCTestCase {
         XCTAssertTrue(outputSpy.fetchWeatherInfoWasCalled)
         
         let request = outputSpy.fetchWeatherInfoRequest
-        XCTAssertEqual(request?.city, "Paris")
+        XCTAssertEqual(request?.woeid, "12345")
     }
 }
