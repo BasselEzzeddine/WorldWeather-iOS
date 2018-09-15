@@ -31,6 +31,17 @@ class WeatherViewControllerUnitTests: XCTestCase {
         UIApplication.shared.keyWindow?.rootViewController = sut
     }
     
+    // MARK: - Spies
+    class OutputSpy: WeatherViewControllerOut {
+        var fetchWeatherInfoWasCalled = false
+        var fetchWeatherInfoRequest: WeatherModel.Fetch.Request?
+        
+        func fetchWeatherInfo(request: WeatherModel.Fetch.Request) {
+            fetchWeatherInfoWasCalled = true
+            fetchWeatherInfoRequest = request
+        }
+    }
+    
     // MARK: - Tests
     func testWhenViewLoads_displaysCorrectCity() {
         // Given
@@ -56,5 +67,22 @@ class WeatherViewControllerUnitTests: XCTestCase {
         XCTAssertEqual(sut.label_current.text, "19°")
         XCTAssertEqual(sut.label_visibility.text, "10 km")
         XCTAssertEqual(sut.label_pressure.text, "1000 hPa")
+    }
+    
+    func testWhenViewLoads_callsFetchWeatherInfoInOutput_withCorrectData() {
+        // Given
+        let outputSpy = OutputSpy()
+        sut.output = outputSpy
+        
+        sut.city = "Paris"
+        
+        // When
+        sut.viewDidLoad()
+        
+        // Then
+        XCTAssertTrue(outputSpy.fetchWeatherInfoWasCalled)
+        
+        let request = outputSpy.fetchWeatherInfoRequest
+        XCTAssertEqual(request?.city, "Paris")
     }
 }

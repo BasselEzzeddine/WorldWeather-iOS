@@ -13,6 +13,7 @@ protocol WeatherViewControllerIn {
 }
 
 protocol WeatherViewControllerOut {
+    func fetchWeatherInfo(request: WeatherModel.Fetch.Request)
 }
 
 class WeatherViewController: UIViewController {
@@ -27,22 +28,29 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var label_city: UILabel!
     
     // MARK: - Properties
+    var output: WeatherViewControllerOut?
     var city = ""
     
     // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         displayCity()
+        callFetchWeatherInfo()
     }
     
     // MARK: - Methods
     private func displayCity() {
         label_city.text = city
     }
+    
+    private func callFetchWeatherInfo() {
+        let request = WeatherModel.Fetch.Request(city: city)
+        output?.fetchWeatherInfo(request: request)
+    }
 }
 
 // MARK: - WeatherInteractorIn
-extension WeatherViewController: WeatherInteractorIn {
+extension WeatherViewController: WeatherViewControllerIn {
     func displayWeatherInfo(viewModel: WeatherModel.Fetch.ViewModel) {
         label_low.text = viewModel.low
         label_high.text = viewModel.high
