@@ -32,7 +32,7 @@ class WeatherViewControllerUnitTests: XCTestCase {
     }
     
     // MARK: - Tests
-    func testWhenViewLoads_displaysCity() {
+    func testWhenViewLoads_displaysCorrectCity() {
         // Given
         sut.city = "Paris"
         
@@ -41,5 +41,20 @@ class WeatherViewControllerUnitTests: XCTestCase {
         
         // Then
         XCTAssertEqual(sut.label_city.text, "Paris")
+    }
+    
+    func testCallingDisplayWeatherInfo_displaysCorrectWeatherInfo() {
+        // When
+        let sunImage = UIImage(named: "sun")!
+        let viewModel = WeatherModel.Fetch.ViewModel(low: "15°", high: "27°", image: sunImage, current: "19°", visibility: "10 km", pressure: "1000 hPa")
+        sut.displayWeatherInfo(viewModel: viewModel)
+        
+        // Then
+        XCTAssertEqual(sut.label_low.text, "15°")
+        XCTAssertEqual(sut.label_high.text, "27°")
+        XCTAssertEqual(sut.imageView_weather.image, sunImage)
+        XCTAssertEqual(sut.label_current.text, "19°")
+        XCTAssertEqual(sut.label_visibility.text, "10 km")
+        XCTAssertEqual(sut.label_pressure.text, "1000 hPa")
     }
 }
