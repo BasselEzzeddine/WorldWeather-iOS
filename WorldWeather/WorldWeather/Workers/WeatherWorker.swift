@@ -30,6 +30,7 @@ class WeatherWorker {
             if let data = data, error == nil {
                 do {
                     let decoder = JSONDecoder()
+                    decoder.dateDecodingStrategy = .formatted(DateFormatter.yyyyMMdd)
                     let rawWeatherInfo = try decoder.decode(RawWeatherInfo.self, from: data)
                     completionHandler(rawWeatherInfo, true)
                 }

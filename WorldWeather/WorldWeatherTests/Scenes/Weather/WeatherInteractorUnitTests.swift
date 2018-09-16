@@ -70,9 +70,9 @@ class WeatherInteractorUnitTests: XCTestCase {
         sut.weatherWorker = weatherWorkerSpy
         
         // When
-        let dayWeather1 = RawWeatherInfo.DayWeather(id: 1, weather_state_name: "", weather_state_abbr: "", wind_direction_compass: "", created: Date(), applicable_date: Date(), min_temp: 0, max_temp: 0, the_temp: 0, wind_speed: 0, wind_direction: 0, air_pressure: 0, humidity: 0, visibility: 0, predictability: 0)
-        let dayWeather2 = RawWeatherInfo.DayWeather(id: 2, weather_state_name: "Heavy Rain", weather_state_abbr: "hr", wind_direction_compass: "WSW", created: Date(), applicable_date: Date().tomorrow(), min_temp: 20, max_temp: 30, the_temp: 25, wind_speed: 50, wind_direction: 300, air_pressure: 1000, humidity: 10, visibility: 30, predictability: 70)
-        let dayWeather3 = RawWeatherInfo.DayWeather(id: 3, weather_state_name: "", weather_state_abbr: "", wind_direction_compass: "", created: Date(), applicable_date: Date(), min_temp: 0, max_temp: 0, the_temp: 0, wind_speed: 0, wind_direction: 0, air_pressure: 0, humidity: 0, visibility: 0, predictability: 0)
+        let dayWeather1 = RawWeatherInfo.DayWeather(id: 1, weather_state_name: "", weather_state_abbr: "", wind_direction_compass: "", created: "", applicable_date: Date(), min_temp: 0, max_temp: 0, the_temp: 0, wind_speed: 0, wind_direction: 0, air_pressure: 0, humidity: 0, visibility: 0, predictability: 0)
+        let dayWeather2 = RawWeatherInfo.DayWeather(id: 2, weather_state_name: "Heavy Rain", weather_state_abbr: "hr", wind_direction_compass: "WSW", created: "", applicable_date: Date().tomorrow(), min_temp: 20, max_temp: 30, the_temp: 25, wind_speed: 50, wind_direction: 300, air_pressure: 1000, humidity: 10, visibility: 30, predictability: 70)
+        let dayWeather3 = RawWeatherInfo.DayWeather(id: 3, weather_state_name: "", weather_state_abbr: "", wind_direction_compass: "", created: "", applicable_date: Date(), min_temp: 0, max_temp: 0, the_temp: 0, wind_speed: 0, wind_direction: 0, air_pressure: 0, humidity: 0, visibility: 0, predictability: 0)
         weatherWorkerSpy.rawWeatherInfoToBeReturned = RawWeatherInfo(dayWeatherList: [dayWeather1, dayWeather2, dayWeather3])
         weatherWorkerSpy.successToBeReturned = true
         

@@ -16,7 +16,7 @@ struct RawWeatherInfo: Decodable {
         let weather_state_name: String
         let weather_state_abbr: String
         let wind_direction_compass: String
-        let created: Date
+        let created: String
         let applicable_date: Date
         let min_temp: Float
         let max_temp: Float
@@ -24,9 +24,9 @@ struct RawWeatherInfo: Decodable {
         let wind_speed: Float
         let wind_direction: Float
         let air_pressure: Float
-        let humidity: Int
+        let humidity: Float
         let visibility: Float
-        let predictability: Int
+        let predictability: Float
     }
     
     enum CodingKeys: String, CodingKey {

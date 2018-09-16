@@ -30,7 +30,7 @@ extension WeatherPresenter: WeatherPresenterIn {
         let low = String(format: "%.f°", response.low)
         let high = String(format: "%.f°", response.high)
         let current = String(format: "%.f°", response.current)
-        let visibility = String(format: "%.1f km", response.visibility)
+        let visibility = String(format: "%.f km", response.visibility)
         let pressure = String(format: "%.f hPa", response.pressure)
         let viewModel = WeatherModel.Fetch.ViewModel.Success(low: low, high: high, image: response.image, current: current, visibility: visibility, pressure: pressure)
         output?.displayWeatherInfo(viewModel: viewModel)

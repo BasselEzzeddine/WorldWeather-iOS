@@ -68,7 +68,7 @@ class WeatherPresenterUnitTests: XCTestCase {
         XCTAssertEqual(viewModel?.high, "25°")
         XCTAssertEqual(viewModel?.image, sunImage)
         XCTAssertEqual(viewModel?.current, "20°")
-        XCTAssertEqual(viewModel?.visibility, "10.3 km")
+        XCTAssertEqual(viewModel?.visibility, "10 km")
         XCTAssertEqual(viewModel?.pressure, "1000 hPa")
     }
     
