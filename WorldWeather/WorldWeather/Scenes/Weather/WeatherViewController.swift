@@ -20,6 +20,7 @@ protocol WeatherViewControllerOut {
 class WeatherViewController: UIViewController {
     
     // MARK: - Outlets
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var label_low: UILabel!
     @IBOutlet weak var label_high: UILabel!
     @IBOutlet weak var imageView_weather: UIImageView!
@@ -34,6 +35,11 @@ class WeatherViewController: UIViewController {
     var woeid = ""
     
     // MARK: - UIViewController
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        WeatherConfigurator.sharedInstance.configure(viewController: self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         displayCity()
@@ -60,9 +66,15 @@ extension WeatherViewController: WeatherViewControllerIn {
         label_current.text = viewModel.current
         label_visibility.text = viewModel.visibility
         label_pressure.text = viewModel.pressure
+        activityIndicator.isHidden = true
     }
     
     func displayErrorMessage(viewModel: WeatherModel.Fetch.ViewModel.Error) {
-        
+        let alertController = UIAlertController(title: "", message: viewModel.message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+        }
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+        activityIndicator.isHidden = true
     }
 }

@@ -55,21 +55,6 @@ class WeatherViewControllerUnitTests: XCTestCase {
         XCTAssertEqual(sut.label_city.text, "Paris")
     }
     
-    func testCallingDisplayWeatherInfo_displaysCorrectWeatherInfo() {
-        // When
-        let sunImage = UIImage(named: "sun")!
-        let viewModel = WeatherModel.Fetch.ViewModel.Success(low: "15°", high: "27°", image: sunImage, current: "19°", visibility: "10 km", pressure: "1000 hPa")
-        sut.displayWeatherInfo(viewModel: viewModel)
-        
-        // Then
-        XCTAssertEqual(sut.label_low.text, "15°")
-        XCTAssertEqual(sut.label_high.text, "27°")
-        XCTAssertEqual(sut.imageView_weather.image, sunImage)
-        XCTAssertEqual(sut.label_current.text, "19°")
-        XCTAssertEqual(sut.label_visibility.text, "10 km")
-        XCTAssertEqual(sut.label_pressure.text, "1000 hPa")
-    }
-    
     func testWhenViewLoads_callsFetchWeatherInfoInOutput_withCorrectData() {
         // Given
         let outputSpy = OutputSpy()
@@ -85,5 +70,34 @@ class WeatherViewControllerUnitTests: XCTestCase {
         
         let request = outputSpy.fetchWeatherInfoRequest
         XCTAssertEqual(request?.woeid, "12345")
+    }
+    
+    func testCallingDisplayWeatherInfo_displaysCorrectWeatherInfo_andHidesActivityIndicator() {
+        // When
+        let sunImage = UIImage(named: "sun")!
+        let viewModel = WeatherModel.Fetch.ViewModel.Success(low: "15°", high: "27°", image: sunImage, current: "19°", visibility: "10 km", pressure: "1000 hPa")
+        sut.displayWeatherInfo(viewModel: viewModel)
+        
+        // Then
+        XCTAssertEqual(sut.label_low.text, "15°")
+        XCTAssertEqual(sut.label_high.text, "27°")
+        XCTAssertEqual(sut.imageView_weather.image, sunImage)
+        XCTAssertEqual(sut.label_current.text, "19°")
+        XCTAssertEqual(sut.label_visibility.text, "10 km")
+        XCTAssertEqual(sut.label_pressure.text, "1000 hPa")
+        
+        XCTAssertTrue(sut.activityIndicator.isHidden)
+    }
+    
+    func testCallingDisplayErrorMessage_displaysCorrectErrorMessage_andHidesActivityIndicator() {
+        // When
+        let viewModel = WeatherModel.Fetch.ViewModel.Error(message: "My error message")
+        sut.displayErrorMessage(viewModel: viewModel)
+        
+        // Then
+        XCTAssertTrue(sut.presentedViewController is UIAlertController)
+        XCTAssertEqual((sut.presentedViewController as! UIAlertController).message, "My error message")
+        
+        XCTAssertTrue(sut.activityIndicator.isHidden)
     }
 }

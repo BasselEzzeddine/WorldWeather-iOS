@@ -169,6 +169,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Tomorrow's weather" id="SDY-ud-jJV"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="xxY-8H-hMo" id="G92-lR-qsY"/>
                         <outlet property="imageView_weather" destination="ruO-04-2ZY" id="c1B-L0-3jc"/>
                         <outlet property="label_city" destination="kzz-TU-PfY" id="7sL-A6-tP7"/>
                         <outlet property="label_current" destination="4nX-6n-OLm" id="HUi-0D-LD0"/>
