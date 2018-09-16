@@ -32,7 +32,9 @@ class CitiesViewController: UIViewController {
     
     private func getCityCellAtIndexPath(_ indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CityCell", for: indexPath)
+        cell.backgroundColor = UIColor.black
         cell.accessoryType = .disclosureIndicator
+        cell.textLabel?.textColor = UIColor.white
         let city = cityList[indexPath.row]
         cell.textLabel?.text = city
         return cell
