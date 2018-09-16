@@ -16,12 +16,18 @@ enum WeatherModel {
         }
         
         struct Response {
+            let low: Float
+            let high: Float
+            let image: UIImage?
+            let current: Float
+            let visibility: Float
+            let pressure: Float
         }
         
         struct ViewModel {
             let low: String
             let high: String
-            let image: UIImage
+            let image: UIImage?
             let current: String
             let visibility: String
             let pressure: String

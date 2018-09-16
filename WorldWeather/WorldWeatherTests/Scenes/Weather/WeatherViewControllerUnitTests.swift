@@ -10,13 +10,14 @@ import XCTest
 @testable import WorldWeather
 
 class WeatherViewControllerUnitTests: XCTestCase {
+    
     // MARK: - Properties
     var sut: WeatherViewController!
     
     // MARK: - XCTestCase
     override func setUp() {
         super.setUp()
-        setupSUT()
+        setupSut()
     }
     
     override func tearDown() {
@@ -25,7 +26,7 @@ class WeatherViewControllerUnitTests: XCTestCase {
     }
     
     // MARK: - Methods
-    func setupSUT() {
+    func setupSut() {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         sut = storyboard.instantiateViewController(withIdentifier: "WeatherViewController") as! WeatherViewController
         UIApplication.shared.keyWindow?.rootViewController = sut
