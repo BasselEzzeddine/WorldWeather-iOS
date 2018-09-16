@@ -24,13 +24,19 @@ enum WeatherModel {
             let pressure: Float
         }
         
-        struct ViewModel {
-            let low: String
-            let high: String
-            let image: UIImage?
-            let current: String
-            let visibility: String
-            let pressure: String
+        enum ViewModel {
+            struct Success {
+                let low: String
+                let high: String
+                let image: UIImage?
+                let current: String
+                let visibility: String
+                let pressure: String
+            }
+            
+            struct Error {
+                let message: String
+            }
         }
     }
 }

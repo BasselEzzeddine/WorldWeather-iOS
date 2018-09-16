@@ -58,7 +58,7 @@ class WeatherViewControllerUnitTests: XCTestCase {
     func testCallingDisplayWeatherInfo_displaysCorrectWeatherInfo() {
         // When
         let sunImage = UIImage(named: "sun")!
-        let viewModel = WeatherModel.Fetch.ViewModel(low: "15°", high: "27°", image: sunImage, current: "19°", visibility: "10 km", pressure: "1000 hPa")
+        let viewModel = WeatherModel.Fetch.ViewModel.Success(low: "15°", high: "27°", image: sunImage, current: "19°", visibility: "10 km", pressure: "1000 hPa")
         sut.displayWeatherInfo(viewModel: viewModel)
         
         // Then

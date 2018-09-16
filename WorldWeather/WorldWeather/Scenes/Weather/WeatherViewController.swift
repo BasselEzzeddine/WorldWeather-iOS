@@ -9,7 +9,8 @@
 import UIKit
 
 protocol WeatherViewControllerIn {
-    func displayWeatherInfo(viewModel: WeatherModel.Fetch.ViewModel)
+    func displayWeatherInfo(viewModel: WeatherModel.Fetch.ViewModel.Success)
+    func displayErrorMessage(viewModel: WeatherModel.Fetch.ViewModel.Error)
 }
 
 protocol WeatherViewControllerOut {
@@ -17,7 +18,7 @@ protocol WeatherViewControllerOut {
 }
 
 class WeatherViewController: UIViewController {
-
+    
     // MARK: - Outlets
     @IBOutlet weak var label_low: UILabel!
     @IBOutlet weak var label_high: UILabel!
@@ -52,12 +53,16 @@ class WeatherViewController: UIViewController {
 
 // MARK: - WeatherInteractorIn
 extension WeatherViewController: WeatherViewControllerIn {
-    func displayWeatherInfo(viewModel: WeatherModel.Fetch.ViewModel) {
+    func displayWeatherInfo(viewModel: WeatherModel.Fetch.ViewModel.Success) {
         label_low.text = viewModel.low
         label_high.text = viewModel.high
         imageView_weather.image = viewModel.image
         label_current.text = viewModel.current
         label_visibility.text = viewModel.visibility
         label_pressure.text = viewModel.pressure
+    }
+    
+    func displayErrorMessage(viewModel: WeatherModel.Fetch.ViewModel.Error) {
+        
     }
 }
