@@ -11,7 +11,7 @@ import UIKit
 class WeatherWorker {
     
     // MARK: - Properties
-    let endpoint = "https://www.metaweather.com/api"
+    let endpoint = "https://www.metaweather.com"
     
     // MARK: - Methods
     func fetchWeatherInfo(woeid: String, completionHandler: @escaping(_ rawWeatherInfo: RawWeatherInfo?, _ success: Bool) -> Void) {
@@ -45,7 +45,7 @@ class WeatherWorker {
     }
     
     func fetchWeatherIcon(iconName: String, completionHandler: @escaping(_ icon: UIImage?) -> Void) {
-        let urlString = "\(endpoint)/static/img/weather/png/64/\(iconName)"
+        let urlString = "\(endpoint)/static/img/weather/png/64/\(iconName).png"
         guard let url = URL(string: urlString) else {
             completionHandler(nil)
             return
