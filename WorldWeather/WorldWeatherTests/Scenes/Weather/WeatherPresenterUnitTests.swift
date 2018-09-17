@@ -36,14 +36,14 @@ class WeatherPresenterUnitTests: XCTestCase {
         var displayWeatherInfoViewModel: WeatherModel.Fetch.ViewModel.Success?
         
         var displayErrorMessageWasCalled = false
-        var displayErrorMessageViewModel: WeatherModel.Fetch.ViewModel.Error?
+        var displayErrorMessageViewModel: WeatherModel.Fetch.ViewModel.Failure?
         
         func displayWeatherInfo(viewModel: WeatherModel.Fetch.ViewModel.Success) {
             displayWeatherInfoWasCalled = true
             displayWeatherInfoViewModel = viewModel
         }
         
-        func displayErrorMessage(viewModel: WeatherModel.Fetch.ViewModel.Error) {
+        func displayErrorMessage(viewModel: WeatherModel.Fetch.ViewModel.Failure) {
             displayErrorMessageWasCalled = true
             displayErrorMessageViewModel = viewModel
         }

@@ -10,7 +10,7 @@ import UIKit
 
 protocol WeatherViewControllerIn {
     func displayWeatherInfo(viewModel: WeatherModel.Fetch.ViewModel.Success)
-    func displayErrorMessage(viewModel: WeatherModel.Fetch.ViewModel.Error)
+    func displayErrorMessage(viewModel: WeatherModel.Fetch.ViewModel.Failure)
 }
 
 protocol WeatherViewControllerOut {
@@ -69,7 +69,7 @@ extension WeatherViewController: WeatherViewControllerIn {
         activityIndicator.isHidden = true
     }
     
-    func displayErrorMessage(viewModel: WeatherModel.Fetch.ViewModel.Error) {
+    func displayErrorMessage(viewModel: WeatherModel.Fetch.ViewModel.Failure) {
         let alertController = UIAlertController(title: "", message: viewModel.message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
         }

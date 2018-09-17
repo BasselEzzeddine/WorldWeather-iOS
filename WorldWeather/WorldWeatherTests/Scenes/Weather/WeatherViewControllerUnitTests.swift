@@ -91,7 +91,7 @@ class WeatherViewControllerUnitTests: XCTestCase {
     
     func testCallingDisplayErrorMessage_displaysCorrectErrorMessage_andHidesActivityIndicator() {
         // When
-        let viewModel = WeatherModel.Fetch.ViewModel.Error(message: "My error message")
+        let viewModel = WeatherModel.Fetch.ViewModel.Failure(message: "My error message")
         sut.displayErrorMessage(viewModel: viewModel)
         
         // Then

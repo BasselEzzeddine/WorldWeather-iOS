@@ -34,7 +34,7 @@ enum WeatherModel {
                 let pressure: String
             }
             
-            struct Error {
+            struct Failure {
                 let message: String
             }
         }

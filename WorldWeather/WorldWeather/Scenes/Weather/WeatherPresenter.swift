@@ -15,7 +15,7 @@ protocol WeatherPresenterIn {
 
 protocol WeatherPresenterOut: class {
     func displayWeatherInfo(viewModel: WeatherModel.Fetch.ViewModel.Success)
-    func displayErrorMessage(viewModel: WeatherModel.Fetch.ViewModel.Error)
+    func displayErrorMessage(viewModel: WeatherModel.Fetch.ViewModel.Failure)
 }
 
 class WeatherPresenter {
@@ -37,7 +37,7 @@ extension WeatherPresenter: WeatherPresenterIn {
     }
     
     func presentError() {
-        let viewModel = WeatherModel.Fetch.ViewModel.Error(message: "An error has occurred, please try again later.")
+        let viewModel = WeatherModel.Fetch.ViewModel.Failure(message: "An error has occurred, please try again later.")
         output?.displayErrorMessage(viewModel: viewModel)
     }
 }
