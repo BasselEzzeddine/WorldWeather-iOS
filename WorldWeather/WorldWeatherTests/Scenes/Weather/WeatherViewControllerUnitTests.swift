@@ -28,7 +28,7 @@ class WeatherViewControllerUnitTests: XCTestCase {
     // MARK: - Methods
     func setupSut() {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        sut = storyboard.instantiateViewController(withIdentifier: "WeatherViewController") as! WeatherViewController
+        sut = storyboard.instantiateViewController(withIdentifier: "WeatherViewController") as? WeatherViewController
         UIApplication.shared.keyWindow?.rootViewController = sut
     }
     
@@ -46,7 +46,7 @@ class WeatherViewControllerUnitTests: XCTestCase {
     // MARK: - Tests
     func testWhenViewLoads_displaysCorrectCity() {
         // Given
-        sut.city = "Paris"
+        sut.city = City(name: "Paris", woeid: "12345")
         
         // When
         sut.viewDidLoad()
@@ -60,7 +60,7 @@ class WeatherViewControllerUnitTests: XCTestCase {
         let outputSpy = OutputSpy()
         sut.output = outputSpy
         
-        sut.woeid = "12345"
+        sut.city = City(name: "Paris", woeid: "12345")
         
         // When
         sut.viewDidLoad()

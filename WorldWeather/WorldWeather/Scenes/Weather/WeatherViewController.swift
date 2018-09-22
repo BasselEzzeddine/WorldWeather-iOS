@@ -31,8 +31,7 @@ class WeatherViewController: UIViewController {
     
     // MARK: - Properties
     var output: WeatherViewControllerOut?
-    var city = ""
-    var woeid = ""
+    var city: City?
     
     // MARK: - UIViewController
     override func awakeFromNib() {
@@ -48,12 +47,14 @@ class WeatherViewController: UIViewController {
     
     // MARK: - Methods
     private func displayCity() {
-        label_city.text = city
+        label_city.text = city?.name
     }
     
     private func callFetchWeatherInfo() {
-        let request = WeatherModel.Fetch.Request(woeid: woeid)
-        output?.fetchWeatherInfo(request: request)
+        if let woeid = city?.woeid {
+            let request = WeatherModel.Fetch.Request(woeid: woeid)
+            output?.fetchWeatherInfo(request: request)
+        }
     }
 }
 

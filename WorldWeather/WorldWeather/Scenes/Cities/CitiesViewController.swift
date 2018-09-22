@@ -14,10 +14,13 @@ class CitiesViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Properties
-    private let cityList = ["Gothenburg", "Stockholm", "Mountain View", "London", "New York", "Berlin"]
-    private let woeidList = ["890869", "906057", "2455920", "44418", "2459115", "638242"]
-    private var selectedCity = ""
-    private var selectedWoeid = ""
+    private let cityList = [City(name: "Gothenburg", woeid: "890869"),
+                            City(name: "Stockholm", woeid: "906057"),
+                            City(name: "Mountain View", woeid: "2455920"),
+                            City(name: "London", woeid: "44418"),
+                            City(name: "New York", woeid: "2459115"),
+                            City(name: "Berlin", woeid: "638242")]
+    private var selectedCity: City?
     
     // MARK: - UIViewController
     override func viewDidLoad() {
@@ -36,7 +39,7 @@ class CitiesViewController: UIViewController {
         cell.accessoryType = .disclosureIndicator
         cell.textLabel?.textColor = UIColor.white
         let city = cityList[indexPath.row]
-        cell.textLabel?.text = city
+        cell.textLabel?.text = city.name
         return cell
     }
     
@@ -46,7 +49,6 @@ class CitiesViewController: UIViewController {
         case "Cities-Weather-Segue":
             let weatherViewController = segue.destination as? WeatherViewController
             weatherViewController?.city = selectedCity
-            weatherViewController?.woeid = selectedWoeid
         default:
             break
         }
@@ -69,7 +71,6 @@ extension CitiesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         selectedCity = cityList[indexPath.row]
-        selectedWoeid = woeidList[indexPath.row]
         performSegue(withIdentifier: "Cities-Weather-Segue", sender: self)
     }
 }
