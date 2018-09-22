@@ -79,7 +79,7 @@ class WeatherInteractorUnitTests: XCTestCase {
         let request = WeatherModel.Fetch.Request(woeid: "12345")
         sut.fetchWeatherInfo(request: request)
         
-        RunLoop.current.run(mode: .defaultRunLoopMode, before: Date(timeIntervalSinceNow: 1)) // Wait a little
+        RunLoop.current.run(mode: RunLoop.Mode.default, before: Date(timeIntervalSinceNow: 1)) // Wait a little
         
         // Then
         XCTAssertTrue(outputSpy.presentWeatherInfoWasCalled)
@@ -107,7 +107,7 @@ class WeatherInteractorUnitTests: XCTestCase {
         let request = WeatherModel.Fetch.Request(woeid: "12345")
         sut.fetchWeatherInfo(request: request)
         
-        RunLoop.current.run(mode: .defaultRunLoopMode, before: Date(timeIntervalSinceNow: 1)) // Wait a little
+        RunLoop.current.run(mode: RunLoop.Mode.default, before: Date(timeIntervalSinceNow: 1)) // Wait a little
         
         // Then
         XCTAssertTrue(outputSpy.presentErrorWasCalled)
