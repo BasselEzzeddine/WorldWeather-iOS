@@ -31,5 +31,6 @@ class WeatherConfigurator {
         presenter.output = viewController
         
         interactor.output = presenter
+        interactor.weatherWorker = WeatherWorker()
     }
 }
