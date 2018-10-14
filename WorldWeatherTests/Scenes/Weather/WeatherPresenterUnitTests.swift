@@ -38,12 +38,12 @@ class WeatherPresenterUnitTests: XCTestCase {
         var displayErrorMessageWasCalled = false
         var displayErrorMessageViewModel: WeatherModel.Fetch.ViewModel.Failure?
         
-        func displayWeatherInfo(viewModel: WeatherModel.Fetch.ViewModel.Success) {
+        func displayWeatherInfo(_ viewModel: WeatherModel.Fetch.ViewModel.Success) {
             displayWeatherInfoWasCalled = true
             displayWeatherInfoViewModel = viewModel
         }
         
-        func displayErrorMessage(viewModel: WeatherModel.Fetch.ViewModel.Failure) {
+        func displayErrorMessage(_ viewModel: WeatherModel.Fetch.ViewModel.Failure) {
             displayErrorMessageWasCalled = true
             displayErrorMessageViewModel = viewModel
         }
@@ -58,7 +58,7 @@ class WeatherPresenterUnitTests: XCTestCase {
         // When
         let sunImage = UIImage(named: "sun")!
         let response = WeatherModel.Fetch.Response(low: 15.333, high: 25.333, image: sunImage, current: 20.333, visibility: 10.333, pressure: 1000.333)
-        sut.presentWeatherInfo(response: response)
+        sut.presentWeatherInfo(response)
         
         // Then
         XCTAssertTrue(outputSpy.displayWeatherInfoWasCalled)

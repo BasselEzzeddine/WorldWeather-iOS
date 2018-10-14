@@ -37,7 +37,7 @@ class WeatherInteractorUnitTests: XCTestCase {
         
         var presentErrorWasCalled = false
         
-        func presentWeatherInfo(response: WeatherModel.Fetch.Response) {
+        func presentWeatherInfo(_ response: WeatherModel.Fetch.Response) {
             presentWeatherInfoWasCalled = true
             presentWeatherInfoResponse = response
         }
@@ -77,7 +77,7 @@ class WeatherInteractorUnitTests: XCTestCase {
         weatherWorkerSpy.successToBeReturned = true
         
         let request = WeatherModel.Fetch.Request(woeid: "12345")
-        sut.fetchWeatherInfo(request: request)
+        sut.fetchWeatherInfo(request)
         
         RunLoop.current.run(mode: RunLoop.Mode.default, before: Date(timeIntervalSinceNow: 1)) // Wait a little
         
@@ -105,7 +105,7 @@ class WeatherInteractorUnitTests: XCTestCase {
         weatherWorkerSpy.successToBeReturned = false
         
         let request = WeatherModel.Fetch.Request(woeid: "12345")
-        sut.fetchWeatherInfo(request: request)
+        sut.fetchWeatherInfo(request)
         
         RunLoop.current.run(mode: RunLoop.Mode.default, before: Date(timeIntervalSinceNow: 1)) // Wait a little
         

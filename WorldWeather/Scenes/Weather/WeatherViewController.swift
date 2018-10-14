@@ -9,12 +9,12 @@
 import UIKit
 
 protocol WeatherViewControllerIn {
-    func displayWeatherInfo(viewModel: WeatherModel.Fetch.ViewModel.Success)
-    func displayErrorMessage(viewModel: WeatherModel.Fetch.ViewModel.Failure)
+    func displayWeatherInfo(_ viewModel: WeatherModel.Fetch.ViewModel.Success)
+    func displayErrorMessage(_ viewModel: WeatherModel.Fetch.ViewModel.Failure)
 }
 
 protocol WeatherViewControllerOut {
-    func fetchWeatherInfo(request: WeatherModel.Fetch.Request)
+    func fetchWeatherInfo(_ request: WeatherModel.Fetch.Request)
 }
 
 class WeatherViewController: UIViewController {
@@ -53,14 +53,14 @@ class WeatherViewController: UIViewController {
     private func callFetchWeatherInfo() {
         if let woeid = city?.woeid {
             let request = WeatherModel.Fetch.Request(woeid: woeid)
-            output?.fetchWeatherInfo(request: request)
+            output?.fetchWeatherInfo(request)
         }
     }
 }
 
 // MARK: - WeatherInteractorIn
 extension WeatherViewController: WeatherViewControllerIn {
-    func displayWeatherInfo(viewModel: WeatherModel.Fetch.ViewModel.Success) {
+    func displayWeatherInfo(_ viewModel: WeatherModel.Fetch.ViewModel.Success) {
         label_low.text = viewModel.low
         label_high.text = viewModel.high
         imageView_weather.image = viewModel.image
@@ -70,7 +70,7 @@ extension WeatherViewController: WeatherViewControllerIn {
         activityIndicator.isHidden = true
     }
     
-    func displayErrorMessage(viewModel: WeatherModel.Fetch.ViewModel.Failure) {
+    func displayErrorMessage(_ viewModel: WeatherModel.Fetch.ViewModel.Failure) {
         let alertController = UIAlertController(title: "", message: viewModel.message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
         }

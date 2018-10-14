@@ -37,7 +37,7 @@ class WeatherViewControllerUnitTests: XCTestCase {
         var fetchWeatherInfoWasCalled = false
         var fetchWeatherInfoRequest: WeatherModel.Fetch.Request?
         
-        func fetchWeatherInfo(request: WeatherModel.Fetch.Request) {
+        func fetchWeatherInfo(_ request: WeatherModel.Fetch.Request) {
             fetchWeatherInfoWasCalled = true
             fetchWeatherInfoRequest = request
         }
@@ -76,7 +76,7 @@ class WeatherViewControllerUnitTests: XCTestCase {
         // When
         let sunImage = UIImage(named: "sun")!
         let viewModel = WeatherModel.Fetch.ViewModel.Success(low: "15°", high: "27°", image: sunImage, current: "19°", visibility: "10 km", pressure: "1000 hPa")
-        sut.displayWeatherInfo(viewModel: viewModel)
+        sut.displayWeatherInfo(viewModel)
         
         // Then
         XCTAssertEqual(sut.label_low.text, "15°")
@@ -92,7 +92,7 @@ class WeatherViewControllerUnitTests: XCTestCase {
     func testCallingDisplayErrorMessage_displaysCorrectErrorMessage_andHidesActivityIndicator() {
         // When
         let viewModel = WeatherModel.Fetch.ViewModel.Failure(message: "My error message")
-        sut.displayErrorMessage(viewModel: viewModel)
+        sut.displayErrorMessage(viewModel)
         
         // Then
         XCTAssertTrue(sut.presentedViewController is UIAlertController)
