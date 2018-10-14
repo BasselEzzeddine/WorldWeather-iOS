@@ -11,7 +11,7 @@ import UIKit
 class WeatherWorker {
     
     // MARK: - Properties
-    let endpoint = "https://www.metaweather.com"
+    private let endpoint = "https://www.metaweather.com"
     
     // MARK: - Methods
     func fetchWeatherInfo(woeid: String, completionHandler: @escaping(_ rawWeatherInfo: RawWeatherInfo?, _ success: Bool) -> Void) {
@@ -57,14 +57,12 @@ class WeatherWorker {
         
         URLSession.shared.dataTask(with: request, completionHandler: {
             (data, response, error) in
-            DispatchQueue.main.async {
-                if let data = data, error == nil {
-                    let icon = UIImage(data: data)
-                    completionHandler(icon)
-                }
-                else {
-                    completionHandler(nil)
-                }
+            if let data = data, error == nil {
+                let icon = UIImage(data: data)
+                completionHandler(icon)
+            }
+            else {
+                completionHandler(nil)
             }
         }).resume()
     }
