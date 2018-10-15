@@ -19,9 +19,6 @@ extension WeatherPresenter: WeatherInteractorOut {
 
 class WeatherConfigurator {
     
-    // MARK: - Properties
-    static let sharedInstance = WeatherConfigurator()
-    
     // MARK: - Methods
     func configure(viewController: WeatherViewController) {
         let interactor = WeatherInteractor()

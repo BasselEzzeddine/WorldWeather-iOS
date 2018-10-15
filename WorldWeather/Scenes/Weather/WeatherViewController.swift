@@ -31,12 +31,13 @@ class WeatherViewController: UIViewController {
     
     // MARK: - Properties
     var output: WeatherViewControllerOut?
+    private let configurator = WeatherConfigurator()
     var city: City?
     
     // MARK: - UIViewController
     override func awakeFromNib() {
         super.awakeFromNib()
-        WeatherConfigurator.sharedInstance.configure(viewController: self)
+        configurator.configure(viewController: self)
     }
     
     override func viewDidLoad() {
