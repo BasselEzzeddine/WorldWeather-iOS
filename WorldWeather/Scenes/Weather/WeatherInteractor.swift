@@ -26,11 +26,13 @@ class WeatherInteractor {
     // MARK: - Methods
     private func handleFetchWeatherInfoResponseFromWorker(_ rawWeatherInfo: RawWeatherInfo?, _ success: Bool) {
         if success, let rawWeatherInfo = rawWeatherInfo, let tommorowWeather = getTomorrowWeather(rawWeatherInfo) {
-            weatherWorker?.fetchWeatherIcon(iconName: tommorowWeather.weather_state_abbr, completionHandler: {
+            weatherWorker?.fetchWeatherIcon(iconName: tommorowWeather.weather_state_abbr, completionHandler: { [weak self]
                 (icon: UIImage?) in
-                let response = self.createFetchResponse(tommorowWeather, icon)
                 DispatchQueue.main.async {
-                    self.output?.presentWeatherInfo(response)
+                    guard let response = self?.createFetchResponse(tommorowWeather, icon) else { self?.output?.presentError()
+                        return
+                    }
+                    self?.output?.presentWeatherInfo(response)
                 }
             })
         }
@@ -55,9 +57,9 @@ class WeatherInteractor {
 // MARK: - WeatherInteractorIn
 extension WeatherInteractor: WeatherInteractorIn {
     func fetchWeatherInfo(_ request: WeatherModel.Fetch.Request) {
-        weatherWorker?.fetchWeatherInfo(woeid: request.woeid, completionHandler: {
+        weatherWorker?.fetchWeatherInfo(woeid: request.woeid, completionHandler: { [weak self]
             (rawWeatherInfo: RawWeatherInfo?, success: Bool) in
-            self.handleFetchWeatherInfoResponseFromWorker(rawWeatherInfo, success)
+            self?.handleFetchWeatherInfoResponseFromWorker(rawWeatherInfo, success)
         })
     }
 }
