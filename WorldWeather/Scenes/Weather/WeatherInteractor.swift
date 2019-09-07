@@ -29,7 +29,8 @@ class WeatherInteractor {
             weatherWorker?.fetchWeatherIcon(iconName: tommorowWeather.weather_state_abbr, completionHandler: { [weak self]
                 (icon: UIImage?) in
                 DispatchQueue.main.async {
-                    guard let response = self?.createFetchResponse(tommorowWeather, icon) else { self?.output?.presentError()
+                    guard let response = self?.createFetchResponse(tommorowWeather, icon) else {
+                        self?.output?.presentError()
                         return
                     }
                     self?.output?.presentWeatherInfo(response)
