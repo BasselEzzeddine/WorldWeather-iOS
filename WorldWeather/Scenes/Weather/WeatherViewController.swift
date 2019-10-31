@@ -8,13 +8,9 @@
 
 import UIKit
 
-protocol WeatherViewControllerIn {
+protocol WeatherViewControllerProviding: class {
     func displayWeatherInfo(_ viewModel: WeatherModel.Fetch.ViewModel.Success)
     func displayErrorMessage(_ viewModel: WeatherModel.Fetch.ViewModel.Failure)
-}
-
-protocol WeatherViewControllerOut {
-    func fetchWeatherInfo(_ request: WeatherModel.Fetch.Request)
 }
 
 class WeatherViewController: UIViewController {
@@ -30,7 +26,7 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var label_city: UILabel!
     
     // MARK: - Properties
-    var output: WeatherViewControllerOut?
+    var interactor: WeatherInteractorProviding?
     private let configurator = WeatherConfigurator()
     var city: City?
     
@@ -54,13 +50,13 @@ class WeatherViewController: UIViewController {
     private func callFetchWeatherInfo() {
         if let woeid = city?.woeid {
             let request = WeatherModel.Fetch.Request(woeid: woeid)
-            output?.fetchWeatherInfo(request)
+            interactor?.fetchWeatherInfo(request)
         }
     }
 }
 
-// MARK: - WeatherInteractorIn
-extension WeatherViewController: WeatherViewControllerIn {
+// MARK: - WeatherInteractorProviding
+extension WeatherViewController: WeatherViewControllerProviding {
     func displayWeatherInfo(_ viewModel: WeatherModel.Fetch.ViewModel.Success) {
         label_low.text = viewModel.low
         label_high.text = viewModel.high

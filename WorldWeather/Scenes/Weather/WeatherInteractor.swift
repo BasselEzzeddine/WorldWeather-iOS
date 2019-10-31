@@ -8,19 +8,14 @@
 
 import UIKit
 
-protocol WeatherInteractorIn {
+protocol WeatherInteractorProviding {
     func fetchWeatherInfo(_ request: WeatherModel.Fetch.Request)
-}
-
-protocol WeatherInteractorOut {
-    func presentWeatherInfo(_ response: WeatherModel.Fetch.Response)
-    func presentError()
 }
 
 class WeatherInteractor {
     
     // MARK: - Properties
-    var output: WeatherInteractorOut?
+    var presenter: WeatherPresenterProviding?
     var weatherWorker: WeatherWorker?
     
     // MARK: - Methods
@@ -30,16 +25,15 @@ class WeatherInteractor {
                 (icon: UIImage?) in
                 DispatchQueue.main.async {
                     guard let response = self?.createFetchResponse(tommorowWeather, icon) else {
-                        self?.output?.presentError()
+                        self?.presenter?.presentError()
                         return
                     }
-                    self?.output?.presentWeatherInfo(response)
+                    self?.presenter?.presentWeatherInfo(response)
                 }
             })
-        }
-        else {
+        } else {
             DispatchQueue.main.async {
-                self.output?.presentError()
+                self.presenter?.presentError()
             }
         }
     }
@@ -55,8 +49,8 @@ class WeatherInteractor {
     }
 }
 
-// MARK: - WeatherInteractorIn
-extension WeatherInteractor: WeatherInteractorIn {
+// MARK: - WeatherInteractorProviding
+extension WeatherInteractor: WeatherInteractorProviding {
     func fetchWeatherInfo(_ request: WeatherModel.Fetch.Request) {
         weatherWorker?.fetchWeatherInfo(woeid: request.woeid, completionHandler: { [weak self]
             (rawWeatherInfo: RawWeatherInfo?, success: Bool) in

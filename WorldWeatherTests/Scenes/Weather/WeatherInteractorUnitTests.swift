@@ -31,7 +31,7 @@ class WeatherInteractorUnitTests: XCTestCase {
     }
     
     // MARK: - Spies
-    class OutputSpy: WeatherInteractorOut {
+    class PresenterSpy: WeatherPresenterProviding {
         var presentWeatherInfoWasCalled = false
         var presentWeatherInfoResponse: WeatherModel.Fetch.Response?
         
@@ -63,8 +63,8 @@ class WeatherInteractorUnitTests: XCTestCase {
     // MARK: - Tests
     func testCallingFetchWeatherInfo_callsPresentWeatherInfoInOutput_withCorrectData_whenHavingSuccess() {
         // Given
-        let outputSpy = OutputSpy()
-        sut.output = outputSpy
+        let presenterSpy = PresenterSpy()
+        sut.presenter = presenterSpy
         
         let weatherWorkerSpy = WeatherWorkerSpy()
         sut.weatherWorker = weatherWorkerSpy
@@ -82,9 +82,9 @@ class WeatherInteractorUnitTests: XCTestCase {
         RunLoop.current.run(mode: RunLoop.Mode.default, before: Date(timeIntervalSinceNow: 1)) // Wait a little
         
         // Then
-        XCTAssertTrue(outputSpy.presentWeatherInfoWasCalled)
+        XCTAssertTrue(presenterSpy.presentWeatherInfoWasCalled)
         
-        let response = outputSpy.presentWeatherInfoResponse
+        let response = presenterSpy.presentWeatherInfoResponse
         XCTAssertEqual(response?.low, 20)
         XCTAssertEqual(response?.high, 30)
         XCTAssertEqual(response?.current, 25)
@@ -95,8 +95,8 @@ class WeatherInteractorUnitTests: XCTestCase {
     
     func testCallingFetchWeatherInfo_callsPresentErrorInOutput_whenHavingFailure() {
         // Given
-        let outputSpy = OutputSpy()
-        sut.output = outputSpy
+        let presenterSpy = PresenterSpy()
+        sut.presenter = presenterSpy
         
         let weatherWorkerSpy = WeatherWorkerSpy()
         sut.weatherWorker = weatherWorkerSpy
@@ -110,6 +110,6 @@ class WeatherInteractorUnitTests: XCTestCase {
         RunLoop.current.run(mode: RunLoop.Mode.default, before: Date(timeIntervalSinceNow: 1)) // Wait a little
         
         // Then
-        XCTAssertTrue(outputSpy.presentErrorWasCalled)
+        XCTAssertTrue(presenterSpy.presentErrorWasCalled)
     }
 }

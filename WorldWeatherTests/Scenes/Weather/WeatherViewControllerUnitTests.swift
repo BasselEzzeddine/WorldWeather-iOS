@@ -33,7 +33,7 @@ class WeatherViewControllerUnitTests: XCTestCase {
     }
     
     // MARK: - Spies
-    class OutputSpy: WeatherViewControllerOut {
+    class InteractorSpy: WeatherInteractorProviding {
         var fetchWeatherInfoWasCalled = false
         var fetchWeatherInfoRequest: WeatherModel.Fetch.Request?
         
@@ -57,8 +57,8 @@ class WeatherViewControllerUnitTests: XCTestCase {
     
     func testWhenViewLoads_callsFetchWeatherInfoInOutput_withCorrectData() {
         // Given
-        let outputSpy = OutputSpy()
-        sut.output = outputSpy
+        let interactorSpy = InteractorSpy()
+        sut.interactor = interactorSpy
         
         sut.city = City(name: "Paris", woeid: "12345")
         
@@ -66,9 +66,9 @@ class WeatherViewControllerUnitTests: XCTestCase {
         sut.viewDidLoad()
         
         // Then
-        XCTAssertTrue(outputSpy.fetchWeatherInfoWasCalled)
+        XCTAssertTrue(interactorSpy.fetchWeatherInfoWasCalled)
         
-        let request = outputSpy.fetchWeatherInfoRequest
+        let request = interactorSpy.fetchWeatherInfoRequest
         XCTAssertEqual(request?.woeid, "12345")
     }
     

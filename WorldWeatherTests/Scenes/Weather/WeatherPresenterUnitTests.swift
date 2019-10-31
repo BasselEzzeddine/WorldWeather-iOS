@@ -31,7 +31,7 @@ class WeatherPresenterUnitTests: XCTestCase {
     }
     
     // MARK: - Spies
-    class OutputSpy: WeatherPresenterOut {
+    class ViewControllerSpy: WeatherViewControllerProviding {
         var displayWeatherInfoWasCalled = false
         var displayWeatherInfoViewModel: WeatherModel.Fetch.ViewModel.Success?
         
@@ -52,8 +52,8 @@ class WeatherPresenterUnitTests: XCTestCase {
     // MARK: - Tests
     func testCallingPresentWeatherInfo_callsDisplayWeatherInfo_withCorrectData() {
         // Given
-        let outputSpy = OutputSpy()
-        sut.output = outputSpy
+        let viewControllerSpy = ViewControllerSpy()
+        sut.viewController = viewControllerSpy
         
         // When
         let sunImage = UIImage(named: "sun")!
@@ -61,9 +61,9 @@ class WeatherPresenterUnitTests: XCTestCase {
         sut.presentWeatherInfo(response)
         
         // Then
-        XCTAssertTrue(outputSpy.displayWeatherInfoWasCalled)
+        XCTAssertTrue(viewControllerSpy.displayWeatherInfoWasCalled)
         
-        let viewModel = outputSpy.displayWeatherInfoViewModel
+        let viewModel = viewControllerSpy.displayWeatherInfoViewModel
         XCTAssertEqual(viewModel?.low, "15°")
         XCTAssertEqual(viewModel?.high, "25°")
         XCTAssertEqual(viewModel?.image, sunImage)
@@ -74,16 +74,16 @@ class WeatherPresenterUnitTests: XCTestCase {
     
     func testCallingPresentError_callsDisplayErrorMessage_withCorrectData() {
         // Given
-        let outputSpy = OutputSpy()
-        sut.output = outputSpy
+        let viewControllerSpy = ViewControllerSpy()
+        sut.viewController = viewControllerSpy
         
         // When
         sut.presentError()
         
         // Then
-        XCTAssertTrue(outputSpy.displayErrorMessageWasCalled)
+        XCTAssertTrue(viewControllerSpy.displayErrorMessageWasCalled)
         
-        let viewModel = outputSpy.displayErrorMessageViewModel
+        let viewModel = viewControllerSpy.displayErrorMessageViewModel
         XCTAssertEqual(viewModel?.message, "An error has occurred, please try again later.")
     }
 }

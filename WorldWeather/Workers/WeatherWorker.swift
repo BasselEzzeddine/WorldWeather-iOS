@@ -33,12 +33,10 @@ class WeatherWorker {
                     decoder.dateDecodingStrategy = .formatted(DateFormatter.yyyyMMdd)
                     let rawWeatherInfo = try decoder.decode(RawWeatherInfo.self, from: data)
                     completionHandler(rawWeatherInfo, true)
-                }
-                catch {
+                } catch {
                     completionHandler(nil, false)
                 }
-            }
-            else {
+            } else {
                 completionHandler(nil, false)
             }
         }).resume()
@@ -60,8 +58,7 @@ class WeatherWorker {
             if let data = data, error == nil {
                 let icon = UIImage(data: data)
                 completionHandler(icon)
-            }
-            else {
+            } else {
                 completionHandler(nil)
             }
         }).resume()

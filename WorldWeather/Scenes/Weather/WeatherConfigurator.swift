@@ -8,26 +8,17 @@
 
 import Foundation
 
-extension WeatherViewController: WeatherPresenterOut {
-}
-
-extension WeatherInteractor: WeatherViewControllerOut {
-}
-
-extension WeatherPresenter: WeatherInteractorOut {
-}
-
 class WeatherConfigurator {
     
     // MARK: - Methods
     func configure(viewController: WeatherViewController) {
         let interactor = WeatherInteractor()
-        viewController.output = interactor
+        viewController.interactor = interactor
         
         let presenter = WeatherPresenter()
-        presenter.output = viewController
+        presenter.viewController = viewController
         
-        interactor.output = presenter
+        interactor.presenter = presenter
         interactor.weatherWorker = WeatherWorker()
     }
 }
